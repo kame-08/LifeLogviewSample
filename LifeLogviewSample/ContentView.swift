@@ -8,19 +8,42 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    //    @State private var selectedTask: PartyTask?
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+        NavigationSplitView {
+            List {
+                ListView(Title: "カレンダー", SFSymbols: "calendar")
+                ListView(Title: "リマインダー", SFSymbols: "checklist")
+                
+                Section("プロジェクト") {
+                    ListView(Title: "卒業制作", SFSymbols: "graduationcap.fill")
+                }
+                .listStyle(.sidebar)
+                
+            }
+        } detail: {
+          DayView()
         }
-        .padding()
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+    }
+}
+
+struct ListView: View {
+    
+    @State var Title :String
+    @State var SFSymbols :String
+    
+    var body: some View {
+        Label(Title, systemImage: SFSymbols)
+        
+        
+        
     }
 }
