@@ -16,12 +16,10 @@ struct ContentView: View {
             List {
                 ListView(Title: "カレンダー", SFSymbols: "calendar")
                 ListView(Title: "リマインダー", SFSymbols: "checklist")
-                
                 Section("プロジェクト") {
                     ListView(Title: "卒業制作", SFSymbols: "graduationcap.fill")
                 }
                 .listStyle(.sidebar)
-                
             }
         } detail: {
           DayView()

@@ -12,7 +12,7 @@ struct MemoView: View {
         List{
             Section("メモ") {
                 TextEditor(text: .constant("メモの内容"))
-                    .frame(height: 310.0)
+                    .frame(height: 290.0)
             }
             
             

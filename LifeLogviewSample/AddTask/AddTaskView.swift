@@ -8,20 +8,55 @@
 import SwiftUI
 
 struct AddTaskView: View {
-        @ObservedObject var viewModel = AddTaskViewModel()
-        var body: some View {
-            NavigationView {
+    @ObservedObject var viewModel = AddTaskViewModel()
+    
+    //優先順位
+    @State var stars = 2
+    var body: some View {
+        NavigationView {
+            VStack {
+                Picker(selection: $viewModel.cal, label: Text("Picker")) {
+                    Text("カレンダー").tag(1)
+                    Text("リマインダー").tag(2)
+                }
+                .padding(/*@START_MENU_TOKEN@*/.horizontal/*@END_MENU_TOKEN@*/)
+                .pickerStyle(.segmented)
                 Form {
                     
-                    Picker(selection: $viewModel.cal, label: Text("Picker")) {
-                        Text("カレンダー").tag(1)
-                        Text("リマインダー").tag(2)
-                    }
-                    .pickerStyle(.segmented)
+                    //                        Picker(selection: $viewModel.cal, label: Text("Picker")) {
+                    //                            Text("カレンダー").tag(1)
+                    //                            Text("リマインダー").tag(2)
+                    //                        }
+                    //                        .pickerStyle(.segmented)
                     
                     TextField("タイトル", text: $viewModel.title)
                     
                     TextField("URL", text: .constant(""))
+                    
+                    if viewModel.cal == 2 {
+                        HStack {
+                            Text("優先順位")
+                            
+                            Spacer()
+                            
+                            ForEach(0..<3) { index in
+                                Button {
+                                    //選択済みをもう一度タップで初期化
+                                    if stars == index + 1 {
+                                        stars = 0
+                                    } else {
+                                        stars = index + 1
+                                    }
+                                } label: {
+                                    Image(systemName: "star.fill")
+                                        .foregroundColor(index < stars ? Color.orange : Color(.quaternaryLabel))
+                                }
+                                .buttonStyle(.plain)
+                            }
+                        }
+                    }
+                 
+                    
                     
                     Toggle(isOn: $viewModel.isOn) {
                         Text("終日")
@@ -54,19 +89,26 @@ struct AddTaskView: View {
                         TextEditor(text: $viewModel.memo)
                             .padding(.leading, -4.0)
                     }
+                    
+                    
                 }
+                
+                
                 .onChange(of: viewModel.date) { newValue in
                     viewModel.hoge()
                 }
                 .toolbar {
                     Text("追加")
                 }
-                .navigationTitle("aaa")
+                .navigationTitle("1件の予定を追加")
                 .navigationBarTitleDisplayMode(.inline)
-                //            .navigationBarHidden(i)
+                
             }
+            //            .navigationBarHidden(i)
+            .background(Color(.systemGroupedBackground))
         }
     }
+}
 
 struct AddTaskView_Previews: PreviewProvider {
     static var previews: some View {
