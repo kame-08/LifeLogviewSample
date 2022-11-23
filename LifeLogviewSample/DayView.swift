@@ -10,6 +10,8 @@ import SwiftUI
 struct DayView: View {
     
     @State private  var sheet = false
+    @State private  var picker = 1
+    
     var body: some View {
         NavigationStack{
             VStack(spacing: 0) {
@@ -84,8 +86,16 @@ struct DayView: View {
                     } label: {
                         Label("追加", systemImage: "plus")
                     }
-                    
-                    
+                }
+                
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Picker("", selection: $picker) {
+                        Text("日").tag(1)
+                        Text("週").tag(2)
+                        Text("月").tag(3)
+                        Text("一覧").tag(4)
+                    }
+                    .pickerStyle(.segmented)
                 }
             }
             .navigationTitle("2022年10月26日(水)")

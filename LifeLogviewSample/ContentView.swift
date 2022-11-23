@@ -14,6 +14,8 @@ struct ContentView: View {
     var body: some View {
         NavigationSplitView {
             List {
+                DatePicker(selection: /*@START_MENU_TOKEN@*/.constant(Date())/*@END_MENU_TOKEN@*/, displayedComponents: .date, label: { /*@START_MENU_TOKEN@*/Text("Date")/*@END_MENU_TOKEN@*/ })
+                    .datePickerStyle(.graphical)
                 ListView(Title: "カレンダー", SFSymbols: "calendar")
                 ListView(Title: "リマインダー", SFSymbols: "checklist")
                 Section("プロジェクト") {
